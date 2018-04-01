@@ -41,7 +41,7 @@ class EquidistantPoints:
         radius = [sqrt(1 - i * i) for i in z_vals]
         x_vals = [r * cos(t) for r, t in zip(radius, theta)]
         y_vals = [r * sin(t) for r, t in zip(radius, theta)]
-        cartesian = zip(x_vals, y_vals, z_vals)
+        cartesian = list(zip(x_vals, y_vals, z_vals))
 
         return cartesian
 
