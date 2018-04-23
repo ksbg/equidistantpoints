@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/ksbg/edpoints.svg?branch=master)](https://travis-ci.org/ksbg/edpoints)
+
 ## Description
 This is a python module which generates (almost) evenly distributed, equidistant points across a perfect sphere or the globe.
 
@@ -21,55 +23,55 @@ Using pip:
 ## Usage
 
 Generate and store 10.000 equidistant points:
+```python
+from edpoints import EquidistantPoints
 
-    from edpoints import EquidistantPoints
+points = EquidistantPoints(n_points=10000)
 
-    points = EquidistantPoints(n_points=10000)
+# Access coordinates in cartesian format
+points.cartesian
 
-    # Access coordinates in cartesian format
-    points.cartesian
+# Access coordinates in ECEF format
+points.ecef
 
-    # Access coordinates in ECEF format
-    points.ecef
+# Access coordinates in geodetic format
+points.geodetic
 
-    # Access coordinates in geodetic format
-    points.geodetic
-
-    # Write to file
-    points.write_cartesian_to_csv('cartesian.csv', header=True)
-    points.write_ecef_to_csv('ecef.csv', header=True)
-    points.write_geodetic_to_csv('geodetic.csv', header=True)
-    points.write_geodetic_to_geojson('geodetic.json')
-
+# Write to file
+points.write_cartesian_to_csv('cartesian.csv', header=True)
+points.write_ecef_to_csv('ecef.csv', header=True)
+points.write_geodetic_to_csv('geodetic.csv', header=True)
+points.write_geodetic_to_geojson('geodetic.json')
+```
 Custom equatorial and polar radii can be supplied at the point of instantiation. The defaults are taken from the [WGS-84](https://en.wikipedia.org/wiki/World_Geodetic_System) standard.
 
 #### Console usage
 The module can also be used from console:
+```commandline
+usage: python -m edpoints [-h] [-f FILE_NAME] [-r EQUATORIAL_RADIUS]
+                          [-p POLAR_RADIUS] [-g | -c | -e]
+                          N
 
-    usage: python -m edpoints [-h] [-f FILE_NAME] [-r EQUATORIAL_RADIUS]
-                              [-p POLAR_RADIUS] [-g | -c | -e]
-                              N
+positional arguments:
+  N                     Number of points to be generated
 
-    positional arguments:
-      N                     Number of points to be generated
-
-    optional arguments:
-      -h, --help            show help message
-      -f FILE_NAME, --file-name FILE_NAME
-                            Path to a file for the result to be stored.
-      -r EQUATORIAL_RADIUS, --equatorial-radius EQUATORIAL_RADIUS
-                            Specify a custom equatorial radius (default: WGS-84
-                            standard)
-      -p POLAR_RADIUS, --polar-radius POLAR_RADIUS
-                            Specify a custom polar radius (default: WGS-84
-                            standard)
-      -g, --geojson         Indicates that the output should be stored in GeoJSON
-                            format (default: CSV)
-      -c, --cartesian       Indicates that the coordinates should be given
-                            in cartesian format (default: geodetic)
-      -e, --ecef            Indicates that the coordinates should be given
-                            in ECEF format (default: geodetic)
-
+optional arguments:
+  -h, --help            show help message
+  -f FILE_NAME, --file-name FILE_NAME
+                        Path to a file for the result to be stored.
+  -r EQUATORIAL_RADIUS, --equatorial-radius EQUATORIAL_RADIUS
+                        Specify a custom equatorial radius (default: WGS-84
+                        standard)
+  -p POLAR_RADIUS, --polar-radius POLAR_RADIUS
+                        Specify a custom polar radius (default: WGS-84
+                        standard)
+  -g, --geojson         Indicates that the output should be stored in GeoJSON
+                        format (default: CSV)
+  -c, --cartesian       Indicates that the coordinates should be given
+                        in cartesian format (default: geodetic)
+  -e, --ecef            Indicates that the coordinates should be given
+                        in ECEF format (default: geodetic)
+```
 Example: Generate and print 1000 points in geodetic format (longitude, latitude)
 
     python -m edpoints 1000
