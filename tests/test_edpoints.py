@@ -1,11 +1,13 @@
 from __future__ import division
 
 import os
+from filecmp import cmp
 from math import radians, sin, cos, sqrt, atan2
 from multiprocessing import Process, Manager, Queue, cpu_count, Lock, freeze_support
+from tempfile import mkstemp
 from unittest import TestCase
 
-from edpoints import EquidistantPoints
+from equidistantpoints import EquidistantPoints
 
 try:  # Python 2
     from Queue import Empty
@@ -14,7 +16,8 @@ except ImportError:  # Python 3
 
 
 def get_nearest_neighbor_distance(point_queue, all_points, dists, lock):
-    """Calculate nearest-neighbor great-circle distance of each point"""
+    """Calculate nearest-neighbor great-circle distance of each point. Used to test for maximum percentage deviation
+    in nearest-neighbor distance."""
     while True:
         try:
             point = point_queue.get_nowait()
@@ -82,3 +85,24 @@ class TestDistanceFluctuation(TestCase):
         arguments = [['test', 1000.123, 10000.456], [100, 'test', 10000.456], [100, 1000.123, 'test']]
         for args in arguments:
             self.assertRaises(TypeError, EquidistantPoints, *args)
+
+
+class TestPointGeneration(TestCase):
+    def setUp(self):
+        self.tmp_files = (path for _, path in (mkstemp() for _ in range(3)))
+        self.edpoints = EquidistantPoints(n_points=1000)
+
+    def test_cartesian_to_csv(self):
+        pass
+
+    def test_geodetic_to_csv(self):
+        pass
+
+    def test_ecef_to_csv(self):
+        pass
+
+    def tearDown(self):
+        for file_path in self.tmp_files:
+            os.remove(file_path)
+
+

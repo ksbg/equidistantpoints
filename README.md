@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/ksbg/edpoints.svg?branch=master)](https://travis-ci.org/ksbg/edpoints)
+[![Build Status](https://travis-ci.org/ksbg/equidistant-points.svg?branch=master)](https://travis-ci.org/ksbg/equidistant-points)
 
 ## Description
 This is a python module which generates (almost) evenly distributed, equidistant points across a perfect sphere or the globe.
@@ -18,13 +18,13 @@ generated points.
 
 Using pip:
 
-    pip install edpoints
+    pip install equidistantpoints
 
 ## Usage
 
 Generate and store 10.000 equidistant points:
 ```python
-from edpoints import EquidistantPoints
+from equidistantpoints import EquidistantPoints
 
 points = EquidistantPoints(n_points=10000)
 
@@ -48,7 +48,7 @@ Custom equatorial and polar radii can be supplied at the point of instantiation.
 #### Console usage
 The module can also be used from console:
 ```commandline
-usage: python -m edpoints [-h] [-f FILE_NAME] [-r EQUATORIAL_RADIUS]
+usage: python -m equidistantpoints [-h] [-f FILE_NAME] [-r EQUATORIAL_RADIUS]
                           [-p POLAR_RADIUS] [-g | -c | -e]
                           N
 
@@ -74,19 +74,19 @@ optional arguments:
 ```
 Example: Generate and print 1000 points in geodetic format (longitude, latitude)
 
-    python -m edpoints 1000
+    edpoints 1000
 
 Example: Generate and print 1000 points in cartesian format
 
-    python -m edpoints 1000 -c
+    edpoints 1000 -c
 
 Example: Generate and print 1000 points in ECEF format with custom radii, and write to file as csv
 
-    python -m edpoints 1000 -e --equatorial-radius 999.999 --polar-radius 999.999 --file-name ecef.csv
+    edpoints 1000 -e --equatorial-radius 999.999 --polar-radius 999.999 --file-name ecef.csv
 
 Example: Generate 1000 points and write to file as geojson (only geodetic can be stored as geojson)
 
-    python -m edpoints 1000 -g --file-name geodetic.json
+    edpoints 1000 -g --file-name geodetic.json
 
 
 ## Running tests
