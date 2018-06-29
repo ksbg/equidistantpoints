@@ -1,10 +1,11 @@
-"""For console usage"""
+"""Command-line usage of the package"""
 from argparse import ArgumentParser
 
 from . import EquidistantPoints
 
 
 def parse_args():
+    """Command-line arguments parsing"""
     parser = ArgumentParser()
     parser.add_argument(
         'n_points',
@@ -38,23 +39,26 @@ def parse_args():
     type_group.add_argument(
         '-c', '--cartesian',
         action='store_true',
-        help='Indicates that the coordinates to be stored should be in cartesian format (default: geodetic)',
+        help='Indicates that the coordinates to be stored should be in cartesian format '
+             '(default: geodetic)',
     )
     type_group.add_argument(
         '-e', '--ecef',
         action='store_true',
-        help='Indicates that the coordinates to be stored should be in ECEF format (default: geodetic)',
+        help='Indicates that the coordinates to be stored should be in ECEF format '
+             '(default: geodetic)',
     )
 
     args = parser.parse_args().__dict__
 
     if args['geojson'] and not args['file_name']:
-        parser.error('If `-g`/`--geojson` is give, `-f`/`--file-name` must also be specified.')
+        parser.error('If `-g`/`--geojson` is given, `-f`/`--file-name` must also be specified.')
 
     return args
 
 
-if __name__ == '__main__':
+def cli_generate_points():
+    """Command-line entry function"""
     args = parse_args()
     ed_points = EquidistantPoints(n_points=args['n_points'],
                                   equatorial_radius=args['equatorial_radius'],
@@ -70,4 +74,5 @@ if __name__ == '__main__':
         else:
             ed_points.write_geodetic_to_csv(file_path=args['file_name'])
     else:
-        print(ed_points.cartesian if args['cartesian'] else ed_points.ecef if args['ecef'] else ed_points.geodetic)
+        print(ed_points.cartesian if args['cartesian'] else ed_points.ecef
+              if args['ecef'] else ed_points.geodetic)
